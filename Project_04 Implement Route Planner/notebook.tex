@@ -1,0 +1,900 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{project\_notebook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{implementing-a-route-planner}{%
+\section{Implementing a Route
+Planner}\label{implementing-a-route-planner}}
+
+In this project you will use A* search to implement a ``Google-maps''
+style route planning algorithm.
+
+    \hypertarget{the-map}{%
+\subsection{The Map}\label{the-map}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Run this cell first!}
+        
+        \PY{k+kn}{from} \PY{n+nn}{helpers} \PY{k}{import} \PY{n}{Map}\PY{p}{,} \PY{n}{load\PYZus{}map\PYZus{}10}\PY{p}{,} \PY{n}{load\PYZus{}map\PYZus{}40}\PY{p}{,} \PY{n}{show\PYZus{}map}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+\end{Verbatim}
+
+
+    
+    
+    \hypertarget{map-basics}{%
+\subsubsection{Map Basics}\label{map-basics}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{map\PYZus{}10} \PY{o}{=} \PY{n}{load\PYZus{}map\PYZus{}10}\PY{p}{(}\PY{p}{)}
+        \PY{n}{show\PYZus{}map}\PY{p}{(}\PY{n}{map\PYZus{}10}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    The map above (run the code cell if you don't see it) shows a
+disconnected network of 10 intersections. The two intersections on the
+left are connected to each other but they are not connected to the rest
+of the road network. This map is quite literal in its expression of
+distance and connectivity. On the graph above, the edge between 2
+nodes(intersections) represents a literal straight road not just an
+abstract connection of 2 cities.
+
+These \texttt{Map} objects have two properties you will want to use to
+implement A* search: \texttt{intersections} and \texttt{roads}
+
+\textbf{Intersections}
+
+The \texttt{intersections} are represented as a dictionary.
+
+In this example, there are 10 intersections, each identified by an x,y
+coordinate. The coordinates are listed below. You can hover over each
+dot in the map above to see the intersection number.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{map\PYZus{}10}\PY{o}{.}\PY{n}{intersections}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} \{0: (0.7798606835438107, 0.6922727646627362),
+         1: (0.7647837074641568, 0.3252670836724646),
+         2: (0.7155217893995438, 0.20026498027300055),
+         3: (0.7076566826610747, 0.3278339270610988),
+         4: (0.8325506249953353, 0.02310946309985762),
+         5: (0.49016747075266875, 0.5464878695400415),
+         6: (0.8820353070895344, 0.6791919587749445),
+         7: (0.46247219371675075, 0.6258061621642713),
+         8: (0.11622158839385677, 0.11236327488812581),
+         9: (0.1285377678230034, 0.3285840695698353)\}
+\end{Verbatim}
+            
+    \textbf{Roads}
+
+The \texttt{roads} property is a list where \texttt{roads{[}i{]}}
+contains a list of the intersections that intersection \texttt{i}
+connects to.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} this shows that intersection 0 connects to intersections 7, 6, and 5}
+        \PY{n}{map\PYZus{}10}\PY{o}{.}\PY{n}{roads}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} [7, 6, 5]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} This shows the full connectivity of the map}
+        \PY{n}{map\PYZus{}10}\PY{o}{.}\PY{n}{roads}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} [[7, 6, 5],
+         [4, 3, 2],
+         [1, 4, 3],
+         [1, 2, 5, 4],
+         [1, 2, 3],
+         [0, 3, 7],
+         [0],
+         [0, 5],
+         [9],
+         [8]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} map\PYZus{}40 is a bigger map than map\PYZus{}10}
+        \PY{n}{map\PYZus{}40} \PY{o}{=} \PY{n}{load\PYZus{}map\PYZus{}40}\PY{p}{(}\PY{p}{)}
+        \PY{n}{show\PYZus{}map}\PY{p}{(}\PY{n}{map\PYZus{}40}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \hypertarget{advanced-visualizations}{%
+\subsubsection{Advanced Visualizations}\label{advanced-visualizations}}
+
+The map above shows a network of roads which spans 40 different
+intersections (labeled 0 through 39).
+
+The \texttt{show\_map} function which generated this map also takes a
+few optional parameters which might be useful for visualizaing the
+output of the search algorithm you will write.
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{start} - The ``start'' node for the search algorithm.
+\item
+  \texttt{goal} - The ``goal'' node.
+\item
+  \texttt{path} - An array of integers which corresponds to a valid
+  sequence of intersection visits on the map.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} run this code, note the effect of including the optional}
+        \PY{c+c1}{\PYZsh{} parameters in the function call.}
+        \PY{n}{show\PYZus{}map}\PY{p}{(}\PY{n}{map\PYZus{}40}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{goal}\PY{o}{=}\PY{l+m+mi}{34}\PY{p}{,} \PY{n}{path}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{37}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{34}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    \hypertarget{the-algorithm}{%
+\subsection{The Algorithm}\label{the-algorithm}}
+
+\hypertarget{writing-your-algorithm}{%
+\subsubsection{Writing your algorithm}\label{writing-your-algorithm}}
+
+The algorithm written will be responsible for generating a \texttt{path}
+like the one passed into \texttt{show\_map} above. In fact, when called
+with the same map, start and goal, as above you algorithm should produce
+the path \texttt{{[}5,\ 16,\ 37,\ 12,\ 34{]}}. However you must complete
+several methods before it will work.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OperatorTok{>} \ExtensionTok{PathPlanner}\NormalTok{(map_40, 5, 34)}\ExtensionTok{.path}
+\NormalTok{[}\ExtensionTok{5}\NormalTok{, 16, 37, 12, 34]}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Do not change this cell}
+        \PY{c+c1}{\PYZsh{} When you write your methods correctly this cell will execute}
+        \PY{c+c1}{\PYZsh{} without problems}
+        \PY{k}{class} \PY{n+nc}{PathPlanner}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Construct a PathPlanner Object\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{M}\PY{p}{,} \PY{n}{start}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{goal}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map} \PY{o}{=} \PY{n}{M}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start}\PY{o}{=} \PY{n}{start}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{o}{=} \PY{n}{goal}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}closedSet}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{goal} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{start} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}openSet}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{goal} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{start} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}cameFrom}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{goal} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{start} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}gScore}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{goal} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{start} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}fScore}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{goal} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{start} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{run\PYZus{}search}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map} \PY{o+ow}{and} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start} \PY{o}{!=} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else} \PY{k+kc}{None}
+                
+            \PY{k}{def} \PY{n+nf}{get\PYZus{}path}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Reconstructs path after search \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path}\PY{p}{:}
+                    \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path} 
+                \PY{k}{else} \PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{run\PYZus{}search}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path}
+            
+            \PY{k}{def} \PY{n+nf}{reconstruct\PYZus{}path}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{current}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Reconstructs path after search \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n}{total\PYZus{}path} \PY{o}{=} \PY{p}{[}\PY{n}{current}\PY{p}{]}
+                \PY{k}{while} \PY{n}{current} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{current} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom}\PY{p}{[}\PY{n}{current}\PY{p}{]}
+                    \PY{n}{total\PYZus{}path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{current}\PY{p}{)}
+                \PY{k}{return} \PY{n}{total\PYZus{}path}
+            
+            \PY{k}{def} \PY{n+nf}{\PYZus{}reset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Private method used to reset the closedSet, openSet, cameFrom, gScore, fScore, and path attributes\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet} \PY{o}{=} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet} \PY{o}{=} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom} \PY{o}{=} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore} \PY{o}{=} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore} \PY{o}{=} \PY{k+kc}{None}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{run\PYZus{}search}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map} \PY{o+ow}{and} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start} \PY{o+ow}{and} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{k}{else} \PY{k+kc}{None}
+        
+            \PY{k}{def} \PY{n+nf}{run\PYZus{}search}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{k}{raise}\PY{p}{(}\PY{n+ne}{ValueError}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Must create map before running search. Try running PathPlanner.set\PYZus{}map(start\PYZus{}node)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{k}{raise}\PY{p}{(}\PY{n+ne}{ValueError}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Must create goal node before running search. Try running PathPlanner.set\PYZus{}goal(start\PYZus{}node)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start} \PY{o}{==} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{k}{raise}\PY{p}{(}\PY{n+ne}{ValueError}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Must create start node before running search. Try running PathPlanner.set\PYZus{}start(start\PYZus{}node)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}closedSet}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else}  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}openSet}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else}  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}cameFrom}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else}  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}gScore}\PY{p}{(}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore} \PY{o}{!=} \PY{k+kc}{None} \PY{k}{else}  \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{create\PYZus{}fScore}\PY{p}{(}\PY{p}{)}
+        
+                \PY{k}{while} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{is\PYZus{}open\PYZus{}empty}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{current} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}current\PYZus{}node}\PY{p}{(}\PY{p}{)}
+        
+                    \PY{k}{if} \PY{n}{current} \PY{o}{==} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal}\PY{p}{:}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{reversed}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{reconstruct\PYZus{}path}\PY{p}{(}\PY{n}{current}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+                        \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{current}\PY{p}{)}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{current}\PY{p}{)}
+        
+                    \PY{k}{for} \PY{n}{neighbor} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}neighbors}\PY{p}{(}\PY{n}{current}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{if} \PY{n}{neighbor} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet}\PY{p}{:}
+                            \PY{k}{continue}    \PY{c+c1}{\PYZsh{} Ignore the neighbor which is already evaluated.}
+        
+                        \PY{k}{if} \PY{o+ow}{not} \PY{n}{neighbor} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet}\PY{p}{:}    \PY{c+c1}{\PYZsh{} Discover a new node}
+                            \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{neighbor}\PY{p}{)}
+                        
+                        \PY{c+c1}{\PYZsh{} The distance from start to a neighbor}
+                        \PY{c+c1}{\PYZsh{}the \PYZdq{}dist\PYZus{}between\PYZdq{} function may vary as per the solution requirements.}
+                        \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}tenative\PYZus{}gScore}\PY{p}{(}\PY{n}{current}\PY{p}{,} \PY{n}{neighbor}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}gScore}\PY{p}{(}\PY{n}{neighbor}\PY{p}{)}\PY{p}{:}
+                            \PY{k}{continue}        \PY{c+c1}{\PYZsh{} This is not a better path.}
+        
+                        \PY{c+c1}{\PYZsh{} This path is the best until now. Record it!}
+                        \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{record\PYZus{}best\PYZus{}path\PYZus{}to}\PY{p}{(}\PY{n}{current}\PY{p}{,} \PY{n}{neighbor}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Path Found}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path} \PY{o}{=} \PY{k+kc}{None}
+                \PY{k}{return} \PY{k+kc}{False}
+\end{Verbatim}
+
+
+    Create the following methods:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}closedSet}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Creates and returns a data structure suitable to hold the set of nodes already evaluated\PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} TODO: return a data structure suitable to hold the set of nodes already evaluated}
+            \PY{k}{return} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}openSet}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Creates and returns a data structure suitable to hold the set of currently discovered nodes }
+         \PY{l+s+sd}{    that are not evaluated yet. Initially, only the start node is known.\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start} \PY{o}{!=} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{} TODO: return a data structure suitable to hold the set of currently discovered }
+                 
+                 \PY{n}{Nod} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)} 
+                 \PY{n}{Nod}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start}\PY{p}{)}
+                 \PY{k}{return} \PY{p}{(}\PY{n}{Nod}\PY{p}{)}
+             
+             \PY{k}{raise}\PY{p}{(}\PY{n+ne}{ValueError}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Must create start node before creating an open set. Try running PathPlanner.set\PYZus{}start(start\PYZus{}node)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}cameFrom}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Creates and returns a data structure that shows which node can most efficiently be reached from another,}
+         \PY{l+s+sd}{    for each node.\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: return a data structure that shows which node can most efficiently be reached from another,}
+              
+             \PY{k}{return} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}gScore}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Creates and returns a data structure that holds the cost of getting from the start node to that node, for each node.}
+         \PY{l+s+sd}{    The cost of going from start to start is zero.\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO:  a data structure that holds the cost of getting from the start node to that node, for each node.}
+             
+             \PY{n}{gScore} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n+nb}{enumerate} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{intersections}\PY{p}{)}\PY{p}{:} 
+                 \PY{n}{gScore}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{gScore}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{return} \PY{n}{gScore}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}fScore}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Creates and returns a data structure that holds the total cost of getting from the start node to the goal}
+         \PY{l+s+sd}{    by passing by that node, for each node. That value is partly known, partly heuristic.}
+         \PY{l+s+sd}{    For the first node, that value is completely heuristic.\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO:  a data structure that holds the total cost of getting from the start node to the goal}
+             \PY{n}{fScore} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n+nb}{enumerate} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{intersections}\PY{p}{)}\PY{p}{:} 
+                 \PY{n}{fScore}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{fScore}\PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start}\PY{p}{]} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heuristic\PYZus{}cost\PYZus{}estimate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start}\PY{p}{)}
+             \PY{k}{return} \PY{n}{fScore}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{\PYZus{}reset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Private method used to reset the closedSet, openSet, cameFrom, gScore, fScore, and path attributes\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{run\PYZus{}search}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map} \PY{o+ow}{and} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start} \PY{o+ow}{and} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{k}{else} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k}{def} \PY{n+nf}{set\PYZus{}map}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{M}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Method used to set map attribute \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}reset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{o}{=} \PY{k+kc}{None}
+             \PY{c+c1}{\PYZsh{} TODO: Set map to new value. }
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map} \PY{o}{=} \PY{n}{M}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{set\PYZus{}start}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{start}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Method used to set start attribute \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}reset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} TODO: Set start value. Remember to remove goal, closedSet, openSet, cameFrom, gScore, fScore, }
+             \PY{c+c1}{\PYZsh{} and path attributes\PYZsq{} values.}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{closedSet} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{path} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{start} \PY{o}{=} \PY{n}{start}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k}{def} \PY{n+nf}{set\PYZus{}goal}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{goal}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Method used to set goal attribute \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{\PYZus{}reset}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} TODO: Set goal value. }
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal} \PY{o}{=} \PY{n}{goal}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}current\PYZus{}node}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Returns the node in the open set with the lowest value of f(node).\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Return the node in the open set with the lowest value of f(node).}
+             \PY{n}{Nod}\PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)} 
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet}\PY{p}{:}
+                 \PY{n}{Nod}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{calculate\PYZus{}fscore}\PY{p}{(}\PY{n}{i}\PY{p}{)} 
+             \PY{k}{return} \PY{n+nb}{min}\PY{p}{(}\PY{n}{Nod}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{Nod}\PY{o}{.}\PY{n}{get}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}neighbors}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{node}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Returns the neighbors of a node\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Return the neighbors of a node}
+             \PY{k}{return} \PY{n+nb}{set}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{roads}\PY{p}{[}\PY{n}{node}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}gScore}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{node}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Returns the g Score of a node\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Return the g Score of a node}
+             \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{node}\PY{p}{,}\PY{l+m+mf}{0.0}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}tenative\PYZus{}gScore}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{current}\PY{p}{,} \PY{n}{neighbor}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Returns the tenative g Score of a node\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Return the tenative g Score of the current node }
+             \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}gScore}\PY{p}{(}\PY{n}{current}\PY{p}{)}\PY{o}{+}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{distance}\PY{p}{(}\PY{n}{current}\PY{p}{,}\PY{n}{neighbor}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{is\PYZus{}open\PYZus{}empty}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}returns True if the open set is empty. False otherwise. \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Return True if the open set is empty. False otherwise.}
+             \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{openSet}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{True}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{False}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{distance}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{node\PYZus{}1}\PY{p}{,} \PY{n}{node\PYZus{}2}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Computes the Euclidean L2 Distance\PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Compute and return the Euclidean L2 Distance}
+             \PY{n}{L1} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{intersections}\PY{p}{[}\PY{n}{node\PYZus{}1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{intersections}\PY{p}{[}\PY{n}{node\PYZus{}2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{L2} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{intersections}\PY{p}{[}\PY{n}{node\PYZus{}1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{map}\PY{o}{.}\PY{n}{intersections}\PY{p}{[}\PY{n}{node\PYZus{}2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{k}{return} \PY{p}{(}\PY{n}{L1}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{L2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mf}{0.5}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{heuristic\PYZus{}cost\PYZus{}estimate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{node}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Returns the heuristic cost estimate of a node \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Return the heuristic cost estimate of a node}
+             \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{distance}\PY{p}{(}\PY{n}{node}\PY{p}{,}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{goal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{calculate\PYZus{}fscore}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{node}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Calculate the f score of a node. \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Calculate and returns the f score of a node. }
+             \PY{c+c1}{\PYZsh{} REMEMBER F = G + H}
+             \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}gScore}\PY{p}{(}\PY{n}{node}\PY{p}{)}\PY{o}{+}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heuristic\PYZus{}cost\PYZus{}estimate}\PY{p}{(}\PY{n}{node}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k}{def} \PY{n+nf}{record\PYZus{}best\PYZus{}path\PYZus{}to}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{current}\PY{p}{,} \PY{n}{neighbor}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Record the best path to a node \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{} TODO: Record the best path to a node, by updating cameFrom, gScore, and fScore}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{cameFrom}\PY{p}{[}\PY{n}{neighbor}\PY{p}{]} \PY{o}{=} \PY{n}{current}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{gScore}\PY{p}{[}\PY{n}{neighbor}\PY{p}{]}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{get\PYZus{}tenative\PYZus{}gScore}\PY{p}{(}\PY{n}{current}\PY{p}{,}\PY{n}{neighbor}\PY{p}{)}
+             \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fScore}\PY{p}{[}\PY{n}{current}\PY{p}{]}\PY{o}{=}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{calculate\PYZus{}fscore}\PY{p}{(}\PY{n}{current}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{create\PYZus{}closedSet} \PY{o}{=} \PY{n}{create\PYZus{}closedSet}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{create\PYZus{}openSet} \PY{o}{=} \PY{n}{create\PYZus{}openSet}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{create\PYZus{}cameFrom} \PY{o}{=} \PY{n}{create\PYZus{}cameFrom}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{create\PYZus{}gScore} \PY{o}{=} \PY{n}{create\PYZus{}gScore}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{create\PYZus{}fScore} \PY{o}{=} \PY{n}{create\PYZus{}fScore}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{\PYZus{}reset} \PY{o}{=} \PY{n}{\PYZus{}reset}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{set\PYZus{}map} \PY{o}{=} \PY{n}{set\PYZus{}map}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{set\PYZus{}start} \PY{o}{=} \PY{n}{set\PYZus{}start}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{set\PYZus{}goal} \PY{o}{=} \PY{n}{set\PYZus{}goal}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{get\PYZus{}current\PYZus{}node} \PY{o}{=} \PY{n}{get\PYZus{}current\PYZus{}node}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{get\PYZus{}neighbors} \PY{o}{=} \PY{n}{get\PYZus{}neighbors}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{get\PYZus{}gScore} \PY{o}{=} \PY{n}{get\PYZus{}gScore}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{get\PYZus{}tenative\PYZus{}gScore} \PY{o}{=} \PY{n}{get\PYZus{}tenative\PYZus{}gScore}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{is\PYZus{}open\PYZus{}empty} \PY{o}{=} \PY{n}{is\PYZus{}open\PYZus{}empty}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{distance} \PY{o}{=} \PY{n}{distance}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{heuristic\PYZus{}cost\PYZus{}estimate} \PY{o}{=} \PY{n}{heuristic\PYZus{}cost\PYZus{}estimate}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{calculate\PYZus{}fscore} \PY{o}{=} \PY{n}{calculate\PYZus{}fscore}
+         \PY{n}{PathPlanner}\PY{o}{.}\PY{n}{record\PYZus{}best\PYZus{}path\PYZus{}to} \PY{o}{=} \PY{n}{record\PYZus{}best\PYZus{}path\PYZus{}to}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{planner} \PY{o}{=} \PY{n}{PathPlanner}\PY{p}{(}\PY{n}{map\PYZus{}40}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{)}
+         \PY{n}{path} \PY{o}{=} \PY{n}{planner}\PY{o}{.}\PY{n}{path}
+         \PY{k}{if} \PY{n}{path} \PY{o}{==} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{37}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{34}\PY{p}{]}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{great! Your code works for these inputs!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{something is off, your code produced the following:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+great! Your code works for these inputs!
+
+    \end{Verbatim}
+
+    \hypertarget{testing-your-code}{%
+\subsubsection{Testing your Code}\label{testing-your-code}}
+
+If the code below produces no errors, your algorithm is behaving
+correctly. You are almost ready to submit! Before you submit, go through
+the following submission checklist:
+
+\textbf{Submission Checklist}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Does my code pass all tests?
+\item
+  Does my code implement \texttt{A*} search and not some other search
+  algorithm?
+\item
+  Do I use an \textbf{admissible heuristic} to direct search efforts
+  towards the goal?
+\item
+  Do I use data structures which avoid unnecessarily slow lookups?
+\end{enumerate}
+
+When you can answer ``yes'' to all of these questions, submit by
+pressing the Submit button in the lower right!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{k+kn}{from} \PY{n+nn}{test} \PY{k}{import} \PY{n}{test}
+         
+         \PY{n}{test}\PY{p}{(}\PY{n}{PathPlanner}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+All tests pass! Congratulations!
+
+    \end{Verbatim}
+
+    \hypertarget{questions}{%
+\subsection{Questions}\label{questions}}
+
+\textbf{Instructions} Answer the following questions in your own words.
+We do not you expect you to know all of this knowledge on the top of
+your head. We expect you to do research and ask question. However do not
+merely copy and paste the answer from a google or stackoverflow. Read
+the information and understand it first. Then use your own words to
+explain the answer.
+
+    \begin{itemize}
+\tightlist
+\item
+  How would you explain A-Star to a family member(layman)?
+\end{itemize}
+
+** ANSWER **:
+
+    \begin{itemize}
+\tightlist
+\item
+  How does A-Star search algorithm differ from Uniform cost search? What
+  about Best First search?
+\end{itemize}
+
+** ANSWER **:
+
+    \begin{itemize}
+\tightlist
+\item
+  What is a heuristic?
+\end{itemize}
+
+** ANSWER **:
+
+    \begin{itemize}
+\tightlist
+\item
+  What is a consistent heuristic?
+\end{itemize}
+
+** ANSWER **:
+
+    \begin{itemize}
+\tightlist
+\item
+  What is a admissible heuristic?
+\end{itemize}
+
+** ANSWER **:
+
+    \begin{itemize}
+\tightlist
+\item
+  \_\_\_ admissible heuristic are consistent. \emph{CHOOSE ONE}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    All
+  \item
+    Some
+  \item
+    None
+  \end{itemize}
+\end{itemize}
+
+** ANSWER **:
+
+    \begin{itemize}
+\tightlist
+\item
+  \_\_\_ Consistent heuristic are admissible. \emph{CHOOSE ONE}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    All
+  \item
+    Some
+  \item
+    None
+  \end{itemize}
+\end{itemize}
+
+** ANSWER **:
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
